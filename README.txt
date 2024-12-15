@@ -1,1 +1,0 @@
-Website for Gabe Mehra. Software Developer.
