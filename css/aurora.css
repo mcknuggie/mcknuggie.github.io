@@ -393,12 +393,20 @@ ul.points li::before {
 }
 
 /* ---------- Timeline ---------- */
-.timeline { position: relative; padding-left: 36px; }
+.timeline {
+  /* --line-x: centre of the vertical line, measured from the timeline's left edge.
+     Line and dots are both centred on it, so they always stay aligned. */
+  --line-x: 8px;
+  --pad: 36px;
+  position: relative;
+  padding-left: var(--pad);
+}
 .timeline::before {
   content: "";
   position: absolute;
-  left: 7px; top: 8px; bottom: 8px;
+  left: var(--line-x); top: 8px; bottom: 8px;
   width: 2px;
+  transform: translateX(-50%);
   background: linear-gradient(180deg, var(--green), var(--violet) 55%, rgba(166, 108, 255, 0.05));
   border-radius: 2px;
 }
@@ -406,8 +414,10 @@ ul.points li::before {
 .timeline .item::before {
   content: "";
   position: absolute;
-  left: -36px; top: 32px;
+  /* the card's 1px border shifts its positioning origin, so subtract it */
+  left: calc(var(--line-x) - var(--pad) - 1px); top: 32px;
   width: 16px; height: 16px;
+  transform: translateX(-50%);
   border-radius: 50%;
   background: var(--bg);
   border: 3px solid var(--green);
@@ -559,9 +569,8 @@ footer a { color: var(--muted); }
   main { padding: 0 16px; }
   section { padding-top: 72px; }
   .card { padding: 22px 20px; }
-  .timeline { padding-left: 26px; }
-  .timeline::before { left: 4px; }
-  .timeline .item::before { left: -27px; width: 13px; height: 13px; }
+  .timeline { --line-x: 7px; --pad: 26px; }
+  .timeline .item::before { width: 14px; height: 14px; }
   footer { padding: 28px 16px 40px; }
 }
 
